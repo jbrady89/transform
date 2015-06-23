@@ -157,13 +157,16 @@ var importUsers = function(){
 		var imported = new Imported(ImportedData);
 		imported.save(function(err, data){
 			if (err) console.log("error: " + err);
-		});
-		var current = new Current(CurrentData);
-		current.save(function(err, data){
-			if (err) console.log("error: " + err);
-		});
 
-		importUsers();
+			var current = new Current(CurrentData);
+			current.save(function(err, data){
+				if (err) console.log("error: " + err);
+
+				importUsers();
+
+			});
+
+		});
 
 	}
 	PrepareMockData();
