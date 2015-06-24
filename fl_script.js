@@ -133,7 +133,7 @@ var importUsers = function(){
 	saveNewUsers = function(profiles){
 
 		// Save transformed data using new schema
-		console.log(profiles);
+		//console.log(profiles);
 		var User = new Final(profiles);
 		// bulk insert
 		Final.collection.insert(profiles, onInsert);
