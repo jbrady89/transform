@@ -70,12 +70,12 @@ var importUsers = function(){
 				if (err) console.log("error: " + err);
 				var merged = _.map(currentSchemaUsers, function(obj, index) {
 					//console.log(index);
-					console.log(imported[index]);
+					//console.log(imported[index]);
 					var currentSchemaObj = obj.toObject();
 					var importSchemaObj = imported[index].toObject();
 					var mergedObj = {};
 					_.extend(mergedObj, currentSchemaObj, importSchemaObj);
-					console.log(_.keys(mergedObj));
+					//console.log(_.keys(mergedObj));
 
 					var oldKeysToChange = 	['BodyType', 'Interests', 'City', 'Gender', 'profileName'];
 					var newKeyNames 	= 	['body', 'interests', 'locationName', 'sex', 'username'];
