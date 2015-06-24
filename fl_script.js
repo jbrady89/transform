@@ -118,6 +118,7 @@ var importUsers = function(){
 			newUserObj.ambitionSelf = info[12];
 
 			delete newUserObj.Info;
+			delete newUserObj._id;
 			delete newUserObj.id;
 			return newUserObj;
 		});
@@ -155,18 +156,25 @@ var importUsers = function(){
 	PrepareMockData = function(){
 
 		var imported = new Imported(ImportedData);
-		imported.save(function(err, data){
-			if (err) console.log("error: " + err);
 
-			var current = new Current(CurrentData);
-			current.save(function(err, data){
+		if ( Imported.find({}) ) {
+			 console.log("data already imported");
+			 importUsers();
+		} else {
+			imported.save(function(err, data){
 				if (err) console.log("error: " + err);
 
-				importUsers();
+				var current = new Current(CurrentData);
+				current.save(function(err, data){
+					if (err) console.log("error: " + err);
+
+					importUsers();
+
+				});
 
 			});
-
-		});
+		}
 
 	}
+
 	PrepareMockData();
