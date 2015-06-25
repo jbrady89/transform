@@ -129,11 +129,11 @@ var importUsers = function(){
 			newUserObj.firstName = '';
 			newUserObj.lastName = '';
 			newUserObj.birthday = '';
-			newUserObj.email = '';
+			newUserObj.email = 'profiles@ddprof.com';
 			newUserObj.hashedPassword = '';
 			newUserObj.salt = '';
-			newUserObj.hasQuestions = '';
-			newUserObj.banned = '';
+			newUserObj.hasQuestions = false;
+			newUserObj.banned = false;
 			newUserObj.location = [];
 
 			delete newUserObj.Info;
