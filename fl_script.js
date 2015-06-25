@@ -136,7 +136,7 @@ var importUsers = function(){
 		//console.log(profiles);
 		var User = new Final(profiles);
 		// bulk insert
-		Final.collection.insert(profiles, onInsert);
+		//Final.collection.insert(profiles, onInsert);
 		//var onInsert = function(err, data){
 			// one by one
 		/*User.save(function(err, data){
@@ -151,29 +151,33 @@ var importUsers = function(){
 			console.log(docs);
 		}
 
-		//User.collection.insert(profiles, onInsert);
+		User.collection.insert(profiles, onInsert);
 	},
 	PrepareMockData = function(){
 
 		var imported = new Imported(ImportedData);
-
-		if ( Imported.find({}) ) {
-			 console.log("data already imported");
-			 importUsers();
-		} else {
-			imported.save(function(err, data){
-				if (err) console.log("error: " + err);
-
-				var current = new Current(CurrentData);
-				current.save(function(err, data){
+		//console.log("159: " + db.collectionNames());
+		console.log("160: " + Imported.find({}).exec());
+		Imported.find({}, function(err, data){
+			console.log("data: " + data);
+			if (data == ''){
+				console.log(true);
+				imported.save(function(err, data){
 					if (err) console.log("error: " + err);
 
-					importUsers();
+					var current = new Current(CurrentData);
+					current.save(function(err, data){
+						if (err) console.log("error: " + err);
 
+						importUsers();
+
+					});
 				});
-
-			});
-		}
+			} else {
+			 console.log("data already imported");
+			 importUsers();
+			}
+		});
 
 	}
 
