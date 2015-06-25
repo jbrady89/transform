@@ -105,6 +105,16 @@ var importUsers = function(){
 
 			newUserObj.profilePicture = newUserObj.pictures[0];
 			var info = newUserObj.Info;
+			info[13] = info[13].match(/\: ([^:]+)\:/)[1];
+			var info = _.map(info, function(s){
+				if (s.indexOf(": ") !== -1){
+					var s = s.substr(s.indexOf(":") + 2);
+				} else {
+					var s = s.substr(s.indexOf(":") + 1);
+				}
+				//s.substr(s.indexOf(' '));
+				return s;
+			});
 			newUserObj.looking = info[0];
 			newUserObj.relStat = info[13];
 			newUserObj.petsHave = info[7];
@@ -116,6 +126,15 @@ var importUsers = function(){
 			newUserObj.doDrugs = info[14];
 			newUserObj.colorEyes = info[8];
 			newUserObj.ambitionSelf = info[12];
+			newUserObj.firstName = '';
+			newUserObj.lastName = '';
+			newUserObj.birthday = '';
+			newUserObj.email = '';
+			newUserObj.hashedPassword = '';
+			newUserObj.salt = '';
+			newUserObj.hasQuestions = '';
+			newUserObj.banned = '';
+			newUserObj.location = [];
 
 			delete newUserObj.Info;
 			delete newUserObj._id;
