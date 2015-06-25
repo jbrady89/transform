@@ -156,12 +156,10 @@ var importUsers = function(){
 	PrepareMockData = function(){
 
 		var imported = new Imported(ImportedData);
-		//console.log("159: " + db.collectionNames());
-		console.log("160: " + Imported.find({}).exec());
+		//console.log("160: " + Imported.find({}).exec());
 		Imported.find({}, function(err, data){
-			console.log("data: " + data);
 			if (data == ''){
-				console.log(true);
+				//console.log(true);
 				imported.save(function(err, data){
 					if (err) console.log("error: " + err);
 
