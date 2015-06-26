@@ -21,6 +21,7 @@ var ImportedData = {
 						"Smoker" : " Non-Smoker ",
 						"Height" : " 5' 5\" (165cm)",
 						"Religion" : " Jewish",
+						"State" : "New York",
 						"firstDate" : "Drinks and dinner.",
 						"Description" : " I love action and comedy movies",
 						"saveDate" : "Fri Jun 05 2015 22:48:03 GMT+0000 (UTC)",
@@ -84,28 +85,22 @@ var importUsers = function(){
 						   .omit(["Needs Test", "Chemistry", "\nView her chemistry results"])
 						   .value();
 
+
+
 		newUserObj.profilePicture = newUserObj.pictures[0];
-
-		//info[12] = info[13].match(/\: ([^:]+)\:/)[1];
-		//process.exit();
-
-		// extract values from old string
-		/*var info = _.map(info, function(s){
-			if (s.indexOf(": ") !== -1){
-				var s = s.substr(s.indexOf(":") + 2);
-			} else {
-				var s = s.substr(s.indexOf(":") + 1);
-			}
-			return s;
-		});*/
-		//console.log(newUserObj);
-		var oldKeyNames = ['BodyType', 'Interests', 'City', 'Gender', 'profileName'];
-		var newKeyNames = ['body', 'interests', 'locationName', 'sex','username'];
+		newUserObj.locationName = newUserObj.City.indexOf(",") !== -1 ? newUserObj.City.split(',')[0] + ', ' + newUserObj.State : newUserObj.City + ", "  + newUserObj.State;
+		//console.log(newUserObj.locationName);
+		
+		var oldKeyNames = ['BodyType', 'Interests', 'Gender', 'profileName'];
+		var newKeyNames = ['body', 'interests', 'sex','username'];
 		
 		newKeyNames.forEach(function(key, index){
 			newUserObj[key] = newUserObj[oldKeyNames[index]];
 		});
 
+		var profileId = newUserObj.profileUrl.substring(newUserObj.profileUrl.indexOf("=") + 1);
+		//console.log(profileId);
+		
 		var newProps = {
 							looking : info['I am Seeking a'],
 							relStat : info['Marital Status'],
@@ -126,7 +121,7 @@ var importUsers = function(){
 							personality: '',
 							profession: '',
 							ethnicity: '',
-							email : 'profiles@ddprof.com',
+							email : profileId + '@ddprof.com',
 							hashedPassword : '',
 							salt : '',
 							hasQuestions : false,
