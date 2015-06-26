@@ -7,7 +7,7 @@ var FinalSchema = new Schema({
 	Age: {type: String, default: ''},
 	ambitionSelf : {type: String, default: ''},
 	banned: Boolean,
-	birthday: Date,
+	birthday: {type: Date, default: ''},
 	body: {type: String, default: ''},
 	colorEyes: {type: String, default: ''},
 	Description: {type: String, default: ''},
@@ -43,7 +43,12 @@ var FinalSchema = new Schema({
 	sex: {type: String, default: ''},
 	Smoker: {type: String, default: ''},
 	type: {type: String, default: ''},
-	username: {type: String, default: ''}
+	username: {type: String, default: ''},
+	ethnicity: {type: String, default: ''},
+	intent: {type: String, default: ''},
+	education: {type: String, default: ''},
+	personality:{type: String, default: ''},
+	profession:{type: String, default: ''},
 });
 
 module.exports = mongoose.model('Final', FinalSchema);
