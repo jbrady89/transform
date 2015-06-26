@@ -70,7 +70,7 @@ var importUsers = function(){
 		});
 		//console.log(newUserObj);
 		var oldKeyNames = ['BodyType', 'Interests', 'City', 'Gender', 'profileName'];
-		var newKeyNames = ['body', 'interest', 'locationName', 'sex','username'];
+		var newKeyNames = ['body', 'interests', 'locationName', 'sex','username'];
 		
 		newKeyNames.forEach(function(key, index){
 			newUserObj[key] = newUserObj[oldKeyNames[index]];
