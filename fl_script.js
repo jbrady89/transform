@@ -6,7 +6,6 @@ console.log("connection to db...\n");
 var db = "mongodb://localhost/transform";
 mongoose.connect(db);
 
-var Current = require("./models/current");
 var Imported = require("./models/imported");
 var Final = require("./models/final");
 
@@ -59,6 +58,8 @@ var importUsers = function(){
 		newUserObj.profilePicture = newUserObj.pictures[0];
 		var info = newUserObj.Info;
 		info[13] = info[13].match(/\: ([^:]+)\:/)[1];
+
+		// extract values from old string
 		var info = _.map(info, function(s){
 			if (s.indexOf(": ") !== -1){
 				var s = s.substr(s.indexOf(":") + 2);
@@ -100,13 +101,6 @@ var importUsers = function(){
 
 		var newUserObj = _.extend(newUserObj, newProps);
 
-		delete newUserObj.Info;
-		delete newUserObj._id;
-		delete newUserObj.id;
-
-
-		// return our new array of transformed user objects
-		//return transformedUsers;
 		saveNewUser(newUserObj);
 
 	},
