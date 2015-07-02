@@ -44,11 +44,11 @@ var FinalSchema = new Schema({
 	Smoker: {type: String, default: ''},
 	type: {type: String, default: ''},
 	username: {type: String, default: ''},
-	ethnicity: {type: String, default: ''},
-	intent: {type: String, default: ''},
-	education: {type: String, default: ''},
-	personality:{type: String, default: ''},
-	profession:{type: String, default: ''},
+	Ethnicity: {type: String, default: ''},
+	Intent: {type: String, default: ''},
+	Education: {type: String, default: ''},
+	Personality:{type: String, default: ''},
+	Profession:{type: String, default: ''},
 });
 
 module.exports = mongoose.model('Final', FinalSchema);
