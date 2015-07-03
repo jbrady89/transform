@@ -52,13 +52,16 @@ var FinalSchema = new Schema({
 	username: {type: String, default: ''},
 });
 
+// this will capitalize the first letter of every chunk in a string
 var capitalize = function(str){
 
- 	return str.replace(/\w+/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()});
+ 	return str.replace(/\w+/g, function(txt) { 
+ 		return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
+ 	});
 };
 
 FinalSchema.pre('save', function (next) {
-  // capitalize
+
   this.locationName = capitalize(this.locationName);
 
   next();
