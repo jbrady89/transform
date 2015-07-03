@@ -3,7 +3,9 @@ var mongoose = require("mongoose"),
 	Schema = mongoose.Schema;
 
 console.log("connection to db...\n");
-var db = "mongodb://test:test@ds061218.mongolab.com:61218/dest2";
+var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", "mongodb://localhost/transform"];
+var db = dbs[1];
+
 mongoose.connect(db);
 
 var Imported = require("./models/imported");
@@ -120,8 +122,8 @@ var importUsers = function(){
 							email : profileId + '@ddprof.com',
 							hashedPassword : '',
 							salt : '',
-							provider: '',
-							role : '',
+							provider: 'local',
+							role : 'user',
 							sleep: false,
 							hasQuestions : false,
 							banned : false,
