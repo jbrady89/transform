@@ -20,7 +20,7 @@ var ImportedUserSchema = new Schema({
 	Personality: {type: String, default: ''},
 	Profession: {type: String, default: ''},
 	Religion: String,
-	firstDate: String,
+	firstdate: String,
 	Description: String,
 	saveDate: String,
 	pictures: Array,

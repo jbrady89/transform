@@ -111,6 +111,7 @@ var importUsers = function(){
 							haveCar : info['Do you have a car?'],
 							drinker : info['Do you drink?'],
 							doDrugs : info['do you do drugs?'],
+							type : info['For'],
 							colorEyes : info['Eye Color'],
 							ambitionSelf : info['How ambitious are you?'],
 							firstName : '',

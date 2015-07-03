@@ -16,7 +16,7 @@ var FinalSchema = new Schema({
 	Education: {type: String, default: ''},
 	email: {type: String, default: ''},
 	Ethnicity: {type: String, default: ''},
-	firstDate: {type: String, default: ''},
+	firstdate: {type: String, default: ''},
 	firstName: {type: String, default: ''},
 	HairColor: {type: String, default: ''},
 	hashedPassword: {type: String, default: ''},
