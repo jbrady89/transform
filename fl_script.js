@@ -90,7 +90,8 @@ var importUsers = function(){
 
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
-		newUserObj.locationName = newUserObj.City.indexOf(",") !== -1 ? newUserObj.City.split(',')[0] + ', ' + newUserObj.State : newUserObj.City + ", "  + newUserObj.State;
+		//newUserObj.locationName = newUserObj.City.indexOf(",") !== -1 ? newUserObj.City.split(',')[0] + ', ' + newUserObj.State : newUserObj.City + ", "  + newUserObj.State;
+		console.log(newUserObj.locationName);
 		//console.log(newUserObj.locationName);
 		
 		var oldKeyNames = ['BodyType', 'Interests', 'Gender', 'profileName'];
