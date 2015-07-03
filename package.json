@@ -8,6 +8,7 @@
     "mongoose": "~3.8.x",
     "body-parser": "~1.x.x",
     "method-override": "~2.x.x",
-    "underscore":"~1.x.x"
+    "underscore": "~1.x.x",
+    "node-geocoder": "~2.21.2"
   }
 }

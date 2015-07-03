@@ -10,15 +10,20 @@ var ImportedUserSchema = new Schema({
 	Gender: String,
 	Age: String,
 	BodyType: String,
+	Education: {type: String, default: ''},
+	Ethnicity: {type: String, default: ''},
 	HairColor: String,
 	Smoker: String, 
 	Height: String,
+	Intent: {type: String, default: ''},
+	Interests: Array,
+	Personality: {type: String, default: ''},
+	Profession: {type: String, default: ''},
 	Religion: String,
 	firstDate: String,
 	Description: String,
 	saveDate: String,
 	pictures: Array,
-	Interests: Array,
 	Info: Array
 }, { strict: false });
 

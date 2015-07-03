@@ -121,6 +121,7 @@ var importUsers = function(){
 							salt : '',
 							provider: '',
 							role : '',
+							sleep: false,
 							hasQuestions : false,
 							banned : false,
 							location : []
