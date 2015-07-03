@@ -27,6 +27,20 @@ var ImportedUserSchema = new Schema({
 	Info: Array
 }, { strict: false });
 
-ImportedUserSchema.set('toObject', {getters: true, setters: true});
+ImportedUserSchema.set('toObject', {virtuals: true});
+
+ImportedUserSchema.virtual('locationName').get(function() { 
+	if (this.City && this.State){
+		return this.City + ', ' + this.State;
+	} else if (this.City.indexOf(',') !== -1){
+		//var city = this.City;
+		//var splitFields = city.split(',');
+		//splitFields
+		return this.City;
+
+	} else {
+		return null;
+	}
+});
 
 module.exports = mongoose.model('ImportedUser', ImportedUserSchema);
