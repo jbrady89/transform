@@ -52,4 +52,16 @@ var FinalSchema = new Schema({
 	username: {type: String, default: ''},
 });
 
+var capitalize = function(str){
+
+ 	return str.replace(/\w+/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()});
+};
+
+FinalSchema.pre('save', function (next) {
+  // capitalize
+  this.locationName = capitalize(this.locationName);
+
+  next();
+});
+
 module.exports = mongoose.model('Final', FinalSchema);
