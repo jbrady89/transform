@@ -122,6 +122,7 @@ var importUsers = function(){
 							type : info['For'],
 							colorEyes : info['Eye Color'],
 							ambitionSelf : info['How ambitious are you?'],
+							Astrology : newUserObj.Astrology || '',
 							firstName : '',
 							lastName : '',
 							birthday : '',
