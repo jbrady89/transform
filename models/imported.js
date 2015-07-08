@@ -35,7 +35,6 @@ ImportedUserSchema.virtual('locationName').get(function() {
 		return this.City + ', ' + this.State;
 	} else if (this.City.indexOf(',') !== -1){
 		return this.City;
-
 	} else {
 		return null;
 	}
