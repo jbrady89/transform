@@ -6,6 +6,7 @@ var FinalSchema = new Schema({
 	__v : Number,
 	Age: {type: String, default: ''},
 	ambitionSelf : {type: String, default: ''},
+	Astrology: {type: String, default: ''},
 	banned: Boolean,
 	birthday: {type: Date, default: ''},
 	body: {type: String, default: ''},
