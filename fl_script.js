@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
 
 console.log("connection to db...\n");
 var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", "mongodb://localhost/transform"];
-var db = dbs[1];
+var db = dbs[0];
 
 mongoose.connect(db);
 
