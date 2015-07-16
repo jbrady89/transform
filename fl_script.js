@@ -4,12 +4,15 @@ var mongoose = require("mongoose"),
 
 console.log("connection to db...\n");
 var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", "mongodb://localhost/transform"];
-var db = dbs[0];
+var db = dbs[1];
 
 mongoose.connect(db);
 
 var Imported = require("./models/imported");
 var Final = require("./models/final");
+//var States = require("./models/states");
+//console.log(States);
+//process.exit();
 
 var ImportedData = {
 						"profileUrl" : "http://www.profileUrl.com/profile_id=123456",
@@ -95,8 +98,10 @@ var importUsers = function(){
 
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
-		//newUserObj.locationName = newUserObj.City.indexOf(",") !== -1 ? newUserObj.City.split(',')[0] + ', ' + newUserObj.State : newUserObj.City + ", "  + newUserObj.State;
-		console.log(newUserObj.locationName);
+
+		//newUserObj.locationName = newUserObj.City.indexOf(",") !== -1 ? newUserObj.City : newUserObj.City + ", "  + newUserObj.State;
+		//console.log(newUserObj.locationName);
+		//process.exit();
 		//console.log(newUserObj.locationName);
 		
 		var oldKeyNames = ['BodyType', 'Interests', 'Gender', 'profileName'];

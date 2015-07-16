@@ -1,8 +1,10 @@
 // object to store the imported stuff
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	States = require('../models/states'),
+	Schema = mongoose.Schema;
 
-var Schema = mongoose.Schema;
 var ImportedUserSchema = new Schema({
+
 	profileUrl: String,
 	profileName: String,
 	profileHeadline: String,
@@ -25,16 +27,25 @@ var ImportedUserSchema = new Schema({
 	saveDate: String,
 	pictures: Array,
 	Info: Array
+
 }, { strict: false });
 
 ImportedUserSchema.set('toObject', {virtuals: true});
 
+ImportedUserSchema.statics.getStateAbbreviation = function(stateName) {
+	this.State.abbreviation = States[stateName];
+	//return abbreviation;
+};
+
 ImportedUserSchema.virtual('locationName').get(function() { 
-	
 	if (this.City && this.State){
-		return this.City + ', ' + this.State;
+		console.log(States.abbreviation(this.State));
+		return this.City + ', ' + States.getAbbreviation(this.State);
 	} else if (this.City.indexOf(',') !== -1){
-		return this.City;
+		var cityAndState = this.City.split(',');
+		var city = cityAndState[0];
+		var state = cityAndState[1];
+		return city + ', ' + States.getAbbreviation(state.trim());
 	} else {
 		return null;
 	}

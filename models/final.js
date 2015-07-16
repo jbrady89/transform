@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var States = require('./states');
 
 var Schema = mongoose.Schema;
 var FinalSchema = new Schema({
@@ -54,17 +55,26 @@ var FinalSchema = new Schema({
 });
 
 // this will capitalize the first letter of every chunk in a string
-var capitalize = function(str){
+/*var capitalize = function(str){
 
  	return str.replace(/\w+/g, function(txt) { 
  		return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
  	});
-};
+};*/
 
 FinalSchema.pre('save', function (next) {
 
-  this.locationName = capitalize(this.locationName);
-
+  //this.locationName = capitalize(this.locationName);
+  /*var cityAndState = this.locationName.split(', ');
+  var city = cityAndState[0];
+  var state = cityAndState[1]
+  var abbreviation = States[state];
+  cityAndState[1] = abbreviation;
+  console.log(cityAndState);
+  var location = cityAndState.join(', ');
+  console.log(location);
+  this.locationName = location; 
+	*/
   next();
 });
 

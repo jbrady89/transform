@@ -1,4 +1,4 @@
-module.exports = {
+var states = {
 
 	// name : abbreviation
     'Alabama': 'AL',
@@ -59,6 +59,13 @@ module.exports = {
     'Washington': 'WA',
     'West Virginia': 'WV',
     'Wisconsin': 'WI',
-    'Wyoming': 'WY'
+    'Wyoming': 'WY',
     
+    getAbbreviation: function(state){
+    	var abbreviation = this[state];
+    	return abbreviation;
+    }
+
 }
+
+module.exports = states;
