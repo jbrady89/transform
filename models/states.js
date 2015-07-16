@@ -1,3 +1,7 @@
+var geocoderProvider = 'google';
+var httpAdapter = 'http'; 
+var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter);
+
 var states = {
 
 	// name : abbreviation
@@ -60,10 +64,28 @@ var states = {
     'West Virginia': 'WV',
     'Wisconsin': 'WI',
     'Wyoming': 'WY',
-    
+
     getAbbreviation: function(state){
     	var abbreviation = this[state];
     	return abbreviation;
+    },
+
+    getCoords: function(loc, cb){
+    	//console.log("73" + loc);
+
+    	geocoder.geocode(loc)
+    	.then(function(res) {
+
+	    	//console.log(res[0].latitude, res[0].longitude);
+	    	//process.exit();
+	    	var coords = [ res[0].latitude, res[0].longitude ];
+	    	cb(coords);
+	    })
+	    .catch(function(err){
+
+	    	//console.log(err);
+	    	cb(err, next);
+	    });
     }
 
 }

@@ -74,8 +74,21 @@ FinalSchema.pre('save', function (next) {
   var location = cityAndState.join(', ');
   console.log(location);
   this.locationName = location; 
+
+
 	*/
-  next();
+	//console.log(this.location);
+
+	States.getCoords(this.locationName, function(coords){
+		console.log("83 " + coords);
+		FinalSchema['location'].push('hello');
+		next();
+	});
+	//console.log(coordinates);
+	//process.exit();
+	//this.location = coordinates;*/
+
+  	//next();
 });
 
 module.exports = mongoose.model('Final', FinalSchema);
