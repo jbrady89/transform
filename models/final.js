@@ -78,12 +78,13 @@ FinalSchema.pre('save', function (next) {
 
 	*/
 	//console.log(this.location);
+	var finalSchema = this;
 
-	States.getCoords(this.locationName, function(coords){
-		console.log("83 " + coords);
-		FinalSchema['location'].push('hello');
+	States.getCoords(this.locationName, finalSchema, function(coords, next){
+		
+		this.location = coords;
 		next();
-	});
+	}, next);
 	//console.log(coordinates);
 	//process.exit();
 	//this.location = coordinates;*/
