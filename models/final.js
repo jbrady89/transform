@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 var States = require('./states');
+var Locations = require('./locations');
 
 var Schema = mongoose.Schema;
 var FinalSchema = new Schema({
-	//_id : Schema.ObjectId,
+
 	__v : Number,
 	Age: {type: String, default: ''},
 	ambitionSelf : {type: String, default: ''},
@@ -54,42 +55,71 @@ var FinalSchema = new Schema({
 	username: {type: String, default: ''},
 });
 
-// this will capitalize the first letter of every chunk in a string
-/*var capitalize = function(str){
+FinalSchema.statics.saveLocation = function (coordinates, locationName, next){
 
- 	return str.replace(/\w+/g, function(txt) { 
- 		return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
- 	});
-};*/
+	var location = new Locations({
+		locationName : locationName,
+		latitude : coordinates[0],
+		longitude : coordinates[1]
+	});
+
+	location.findOne({locationName : locationName}, function(err, location, created){
+		/*if (!created){
+			States
+				.getCoords(this.locationName, finalSchema, function(coords, next){
+				
+					this.location = coords;
+					this.saveLocation(this.location, this.locationName);
+					next();
+
+				}, next);
+			console.log("new location was saved!")
+		} else {
+			this.location = location;
+		}*/
+	});
+
+}
 
 FinalSchema.pre('save', function (next) {
 
-  //this.locationName = capitalize(this.locationName);
-  /*var cityAndState = this.locationName.split(', ');
-  var city = cityAndState[0];
-  var state = cityAndState[1]
-  var abbreviation = States[state];
-  cityAndState[1] = abbreviation;
-  console.log(cityAndState);
-  var location = cityAndState.join(', ');
-  console.log(location);
-  this.locationName = location; 
-
-
-	*/
-	//console.log(this.location);
 	var finalSchema = this;
 
-	States.getCoords(this.locationName, finalSchema, function(coords, next){
-		
-		this.location = coords;
-		next();
-	}, next);
-	//console.log(coordinates);
-	//process.exit();
-	//this.location = coordinates;*/
+	// access the getCoords method from states.js
+	// passing in the locationName, a copy of the schema, a callback function, and a reference t the next method
+	// this function returns the latitude and longitude for the user's locationName property
+	Locations.findOne({location : finalSchema.locationName}, function(err, location){
 
-  	//next();
+		if (err){
+			console.log("no record exists");
+		} else if (!location){
+			States
+				.getCoords(finalSchema.locationName, finalSchema, function(coords, next){
+
+					this.location = coords;
+
+					var locationData = {
+						location:this.locationName,
+						latitude: this.location[0],
+						longitude: this.location[1]
+					},
+					location = new Locations(locationData);
+					
+					location.save(function(err, loc){
+						if (err){
+							console.log("error");
+						} else {
+							console.log(loc);
+							next();
+						}
+					});
+
+				}, next);
+		} else {
+			finalSchema.location = [ location.latitude, location.longitude ];
+			next();
+		}
+	});
 });
 
 module.exports = mongoose.model('Final', FinalSchema);

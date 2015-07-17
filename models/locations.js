@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var States = require('./states');
+//var findOrCreate = require('mongoose-findorcreate')
+
 
 var Schema = mongoose.Schema;
 var LocationSchema = new Schema({
@@ -8,5 +10,7 @@ var LocationSchema = new Schema({
 		longitude : String
 	});
 
-mongoose.model('Location', LocationSchema);
+//LocationSchema.plugin(findOrCreate);
+
+module.exports = mongoose.model('Locations', LocationSchema);
 
