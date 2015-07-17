@@ -9,6 +9,7 @@
     "body-parser": "~1.x.x",
     "method-override": "~2.x.x",
     "underscore": "~1.x.x",
-    "node-geocoder": "~2.21.2"
+    "node-geocoder": "~2.21.2",
+    "mongoose-findorcreate": "~0.1.2"
   }
 }
