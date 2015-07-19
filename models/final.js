@@ -55,32 +55,6 @@ var FinalSchema = new Schema({
 	username: {type: String, default: ''},
 });
 
-FinalSchema.statics.saveLocation = function (coordinates, locationName, next){
-
-	var location = new Locations({
-		locationName : locationName,
-		latitude : coordinates[0],
-		longitude : coordinates[1]
-	});
-
-	location.findOne({locationName : locationName}, function(err, location, created){
-		/*if (!created){
-			States
-				.getCoords(this.locationName, finalSchema, function(coords, next){
-				
-					this.location = coords;
-					this.saveLocation(this.location, this.locationName);
-					next();
-
-				}, next);
-			console.log("new location was saved!")
-		} else {
-			this.location = location;
-		}*/
-	});
-
-}
-
 FinalSchema.pre('save', function (next) {
 
 	var finalSchema = this;
@@ -89,30 +63,38 @@ FinalSchema.pre('save', function (next) {
 	// passing in the locationName, a copy of the schema, a callback function, and a reference t the next method
 	// this function returns the latitude and longitude for the user's locationName property
 	Locations.findOne({location : finalSchema.locationName}, function(err, location){
-
+		var loc = location;
 		if (err){
-			console.log("no record exists");
+			console.log("68 no record exists");
 		} else if (!location){
 			States
 				.getCoords(finalSchema.locationName, finalSchema, function(coords, next){
 
-					this.location = coords;
+					if (coords.length) {
+						this.location = coords;
 
-					var locationData = {
-						location:this.locationName,
-						latitude: this.location[0],
-						longitude: this.location[1]
-					},
-					location = new Locations(locationData);
+						var locationData = {
+							location:this.locationName,
+							latitude: this.location[0],
+							longitude: this.location[1]
+						},
+						location = new Locations(locationData);
+						
+						location.save(function(err, loc){
+							if (err){
+								console.log("90 error: " + err);
+								next();
+							} else {
+								console.log(loc);
+								next();
+							}
+						});
+
+					} else {
 					
-					location.save(function(err, loc){
-						if (err){
-							console.log("error");
-						} else {
-							console.log(loc);
-							next();
-						}
-					});
+						console.log("coordinates were not found for: ", loc);
+						next();
+					}
 
 				}, next);
 		} else {

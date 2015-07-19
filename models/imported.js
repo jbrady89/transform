@@ -24,28 +24,27 @@ var ImportedUserSchema = new Schema({
 	Religion: String,
 	firstdate: String,
 	Description: String,
+	State: {type: String, default: null},
 	saveDate: String,
 	pictures: Array,
 	Info: Array
 
 }, { strict: false });
 
-ImportedUserSchema.set('toObject', {virtuals: true});
+ImportedUserSchema.set('toObject', {getters: true, virtuals: true});
 
-ImportedUserSchema.statics.getStateAbbreviation = function(stateName) {
-	this.State.abbreviation = States[stateName];
-	//return abbreviation;
-};
+ImportedUserSchema.virtual('cityAndState').get(function() { 
 
-ImportedUserSchema.virtual('locationName').get(function() { 
-	if (this.City && this.State){
-		console.log(States.abbreviation(this.State));
-		return this.City + ', ' + States.getAbbreviation(this.State);
-	} else if (this.City.indexOf(',') !== -1){
+	if (this.City.indexOf(',') !== -1){
 		var cityAndState = this.City.split(',');
 		var city = cityAndState[0];
 		var state = cityAndState[1];
 		return city + ', ' + States.getAbbreviation(state.trim());
+	} else if (this.City && this.State){
+		console.log(this.City, this.State);
+		var state = this.State;
+		var city = this.City;
+		return this.City + ', ' + States.getAbbreviation(this.State);
 	} else {
 		return null;
 	}

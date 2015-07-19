@@ -4,7 +4,7 @@ var mongoose = require("mongoose"),
 
 console.log("connection to db...\n");
 var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", "mongodb://localhost/transform"];
-var db = dbs[1];
+var db = dbs[0];
 
 mongoose.connect(db);
 
@@ -58,10 +58,11 @@ var importUsers = function(){
 			}
 			var imported = importedUser.toObject();
 			transform(imported);
+
 		});
 	},
 	transform = function(newUserObj){
-		console.log("53: " + newUserObj.Info);
+		//console.log("53: " + newUserObj.Info);
 		//console.log(newUserObj.Info);
 
 		var infoKeys = [];
@@ -113,7 +114,9 @@ var importUsers = function(){
 
 		var profileId = newUserObj.profileUrl.substring(newUserObj.profileUrl.indexOf("=") + 1);
 		//console.log(profileId);
-		
+		setTimeout(function(){
+			console.log(newUserObj.cityAndState);
+		}, 500);
 		var newProps = {
 							looking : info['I am Seeking a'],
 							relStat : info['Marital Status'],
@@ -128,6 +131,7 @@ var importUsers = function(){
 							colorEyes : info['Eye Color'],
 							ambitionSelf : info['How ambitious are you?'],
 							Astrology : newUserObj.Astrology || '',
+							locationName : newUserObj.cityAndState,
 							firstName : '',
 							lastName : '',
 							birthday : '',
@@ -154,23 +158,32 @@ var importUsers = function(){
 
 		// Save transformed data using new schema
 		var User = new Final(profile);
+		//console.log(User);
 		User.save(function(err, data){
-			if (err) console.log("Error: " + err);
+			if (err) {
+				console.log("Error: " + err);
+				User.update({_id : User._id}, User, function(err, data){
+					if (err) console.log("error: " + err);
+					else {
+						console.log("data was updated");
+					}
+				});
+			}
 
 			else {
 				count++;
 				console.log(count + " users have been saved");
+				console.log(data);
 				console.log("deleting old record");
-
-				Imported.findOneAndRemove({}, function(err, doc){
-					if (err) console.log("Error: " + err);
-
-					console.log("document was successfully deleted!");
-					console.log("getting another one...\n\n");
-					importUsers();
-				});
-
 			}
+			Imported.findOneAndRemove({}, function(err, doc){
+				if (err) console.log("Error: " + err);
+
+				console.log("document was successfully deleted!");
+				console.log("getting another one...\n\n");
+				importUsers();
+			});
+
 		});
 
 	},

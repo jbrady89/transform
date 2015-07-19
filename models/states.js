@@ -66,23 +66,29 @@ var states = {
     'Wyoming': 'WY',
 
     getAbbreviation: function(state){
+        //console.log(state);
     	var abbreviation = this[state];
     	return abbreviation;
     },
 
     getCoords: function(loc, schema, cb, next){
+        //console.log(loc);
+        if (loc) {    	
+            geocoder.geocode(loc)
+        	.then(function(res) {
 
-    	geocoder.geocode(loc)
-    	.then(function(res) {
+    	    	var coords = [ res[0].latitude, res[0].longitude ];
+    	    	cb.call(schema, coords, next);
 
-	    	var coords = [ res[0].latitude, res[0].longitude ];
-	    	cb.call(schema, coords, next);
+    	    })
+    	    .catch(function(err){
 
-	    })
-	    .catch(function(err){
-
-	    	cb(err, next);
-	    });
+    	    	cb(schema, err, next);
+    	    });
+        } else  {
+            var coords = [];
+            cb(schema, coords, next);
+        }
     }
 
 }
