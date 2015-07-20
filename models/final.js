@@ -65,7 +65,7 @@ FinalSchema.pre('save', function (next) {
 	Locations.findOne({location : finalSchema.locationName}, function(err, location){
 		var loc = location;
 		if (err){
-			console.log("68 no record exists");
+			console.log("err");
 		} else if (!location){
 			States
 				.getCoords(finalSchema.locationName, finalSchema, function(coords, next){
@@ -77,7 +77,7 @@ FinalSchema.pre('save', function (next) {
 							location:this.locationName,
 							latitude: this.location[0],
 							longitude: this.location[1]
-						},
+						}
 						location = new Locations(locationData);
 						
 						location.save(function(err, loc){
@@ -92,7 +92,7 @@ FinalSchema.pre('save', function (next) {
 
 					} else {
 					
-						console.log("coordinates were not found for: ", loc);
+						console.log("coordinates were not found for: " + loc);
 						next();
 					}
 

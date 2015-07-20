@@ -57,6 +57,7 @@ var importUsers = function(){
 				process.exit();
 			}
 			var imported = importedUser.toObject();
+			delete imported._id;
 			transform(imported);
 
 		});
@@ -114,9 +115,7 @@ var importUsers = function(){
 
 		var profileId = newUserObj.profileUrl.substring(newUserObj.profileUrl.indexOf("=") + 1);
 		//console.log(profileId);
-		setTimeout(function(){
-			console.log(newUserObj.cityAndState);
-		}, 500);
+		console.log("118: " + newUserObj.cityAndState);
 		var newProps = {
 							looking : info['I am Seeking a'],
 							relStat : info['Marital Status'],
@@ -173,7 +172,7 @@ var importUsers = function(){
 			else {
 				count++;
 				console.log(count + " users have been saved");
-				console.log(data);
+				console.log("175: " + data.location, data.locationName);
 				console.log("deleting old record");
 			}
 			Imported.findOneAndRemove({}, function(err, doc){
@@ -207,7 +206,7 @@ var importUsers = function(){
 				console.log("data already imported");
 				importUsers();
 			}
-		}); 
+		});
 	}
 
 	PrepareMockData();

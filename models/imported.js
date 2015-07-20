@@ -34,17 +34,20 @@ var ImportedUserSchema = new Schema({
 ImportedUserSchema.set('toObject', {getters: true, virtuals: true});
 
 ImportedUserSchema.virtual('cityAndState').get(function() { 
-
+	console.log("37: " + this.City, this.State);
 	if (this.City.indexOf(',') !== -1){
 		var cityAndState = this.City.split(',');
 		var city = cityAndState[0];
 		var state = cityAndState[1];
+		//console.log("42: " + State.getAbbreviation(state.trim()));
+
 		return city + ', ' + States.getAbbreviation(state.trim());
 	} else if (this.City && this.State){
-		console.log(this.City, this.State);
+		//console.log(this.City, this.State);
+		//console.log(States.getAbbreviation(this.State.trim()))
 		var state = this.State;
 		var city = this.City;
-		return this.City + ', ' + States.getAbbreviation(this.State);
+		return this.City + ', ' + States.getAbbreviation(state.trim());
 	} else {
 		return null;
 	}

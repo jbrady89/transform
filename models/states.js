@@ -73,24 +73,27 @@ var states = {
 
     getCoords: function(loc, schema, cb, next){
         //console.log(loc);
+        console.log("76: " + loc);
         if (loc) {    	
             geocoder.geocode(loc)
         	.then(function(res) {
-
+                //console.log(res);
+                console.log(res);
     	    	var coords = [ res[0].latitude, res[0].longitude ];
     	    	cb.call(schema, coords, next);
 
     	    })
     	    .catch(function(err){
-
-    	    	cb(schema, err, next);
+                console.log(err);
+    	    	cb.call(schema, err, next);
     	    });
         } else  {
             var coords = [];
-            cb(schema, coords, next);
+            console.log(coords);
+            cb.call(schema, coords, next);
         }
     }
 
-}
+};
 
 module.exports = states;
