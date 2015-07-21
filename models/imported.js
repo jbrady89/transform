@@ -11,6 +11,7 @@ var ImportedUserSchema = new Schema({
 	City: String,
 	Gender: String,
 	Age: String,
+	Astrology: String,
 	BodyType: String,
 	Education: {type: String, default: ''},
 	Ethnicity: {type: String, default: ''},

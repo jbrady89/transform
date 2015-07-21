@@ -31,7 +31,7 @@ var FinalSchema = new Schema({
 	kidsHave: {type: String, default: ''},
 	kidsWant: {type: String, default: ''},
 	lastName: {type: String, default: ''},
-	location: Array,
+	location: [Number],
 	locationName: {type: String, default: ''},
 	longestRel: {type: String, default: ''},
 	looking: {type: String, default: ''},
@@ -104,4 +104,4 @@ FinalSchema.pre('save', function (next) {
 	});
 });
 
-module.exports = mongoose.model('Final', FinalSchema);
+module.exports = mongoose.model('Finalz', FinalSchema);

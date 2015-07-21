@@ -80,6 +80,7 @@ var states = {
                 //console.log(res);
                 console.log(res);
     	    	var coords = [ res[0].latitude, res[0].longitude ];
+
     	    	cb.call(schema, coords, next);
 
     	    })

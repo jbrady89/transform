@@ -1,3 +1,7 @@
+// Version v.0.4.2
+// July 20, 2015 04:40 UTC
+// astrology enabled.
+
 var _ = require("underscore");
 var mongoose = require("mongoose"),
 	Schema = mongoose.Schema;
@@ -129,7 +133,7 @@ var importUsers = function(){
 							type : info['For'],
 							colorEyes : info['Eye Color'],
 							ambitionSelf : info['How ambitious are you?'],
-							Astrology : newUserObj.Astrology || '',
+							Astrology : newUserObj.Astrology,
 							locationName : newUserObj.cityAndState,
 							firstName : '',
 							lastName : '',
