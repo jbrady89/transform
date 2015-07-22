@@ -119,9 +119,9 @@ var importUsers = function(){
 
 		var profileId = newUserObj.profileUrl.substring(newUserObj.profileUrl.indexOf("=") + 1);
 		//console.log(profileId);
-		console.log("118: " + newUserObj.cityAndState);
+		console.log("118: " + JSON.stringify(newUserObj));
 		var newProps = {
-							looking : info['I am Seeking a'].trim().toUpperCase().slice(0,1),
+							looking : info['I am Seeking a'] ? info['I am Seeking a'].trim().toUpperCase().slice(0,1) : info['I am Seeking a'],
 							relStat : info['Marital Status'],
 							petsHave : info['Pets'],
 							longestRel : info['Longest Relationship'],
