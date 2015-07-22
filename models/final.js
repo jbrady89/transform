@@ -98,10 +98,10 @@ FinalSchema.pre('save', function (next) {
 
 				}, next);
 		} else {
-			finalSchema.location = [ location.latitude, location.longitude ];
+			finalSchema.location = [ location.longitude, location.latitude ];
 			next();
 		}
 	});
 });
 
-module.exports = mongoose.model('Finalz', FinalSchema);
+module.exports = mongoose.model('Final', FinalSchema);

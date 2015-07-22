@@ -1,6 +1,6 @@
-// Version v.0.4.2
+// Version v.0.4.3
 // July 20, 2015 04:40 UTC
-// astrology enabled.
+// Sex and Looking fields are set to a single letter.
 
 var _ = require("underscore");
 var mongoose = require("mongoose"),
@@ -121,7 +121,7 @@ var importUsers = function(){
 		//console.log(profileId);
 		console.log("118: " + newUserObj.cityAndState);
 		var newProps = {
-							looking : info['I am Seeking a'],
+							looking : info['I am Seeking a'].trim().toUpperCase().slice(0,1),
 							relStat : info['Marital Status'],
 							petsHave : info['Pets'],
 							longestRel : info['Longest Relationship'],
@@ -144,6 +144,7 @@ var importUsers = function(){
 							provider: 'local',
 							role : 'user',
 							sleep: false,
+							sex : newUserObj.sex.trim().toUpperCase().slice(0,1),
 							hasQuestions : false,
 							banned : false,
 							location : []
@@ -152,6 +153,7 @@ var importUsers = function(){
 		var newUserObj = _.extend(newUserObj, newProps);
 		//console.log(newUserObj);
 		//process.exit();
+
 		saveNewUser(newUserObj);
 
 	},

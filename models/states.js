@@ -79,7 +79,7 @@ var states = {
         	.then(function(res) {
                 //console.log(res);
                 console.log(res);
-    	    	var coords = [ res[0].latitude, res[0].longitude ];
+    	    	var coords = [ res[0].longitude, res[0].latitude ];
 
     	    	cb.call(schema, coords, next);
 
