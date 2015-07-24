@@ -3,16 +3,25 @@ var Final = require('../../models/final');
 var Tables = require('./tables');
 var Rewrite = {
 
-	monthFromZodiac : function(sign){
-
-	},
-
 	birthday : function(user){
-		var zodiacSign = user.Astrology;
-		var age = user.Age;
-		var d = new Date();
-		var birthYear = d.getFullYear() - age;
-		var birthMonth = this.monthFromZodiac(zodiacSign);
+		var zodiacSign = user.Astrology.toLowerCase();
+		if (zodiacSign !== "eastern leo" || zodiacSign !== "ethnicity"){
+			console.log(zodiacSign);
+			try {
+				var zodiacStartDate = Tables.birthday[zodiacSign].startDate;
+			}
+			catch (e){
+				console.log(e);
+			}
+			//var age = user.Age;
+			//var d = new Date();
+			//var birthYear = d.getFullYear() - age;
+			//var birthDate = zodiacStartDate + " " + birthYear;
+
+			return 'april 1 1989';
+		}
+
+		return user.birthday;
 	},
 
 	bodyType: function(user){
@@ -25,6 +34,7 @@ var Rewrite = {
 				return body;
 			}
 		}
+
 		// pass back the input if nothing was matched
 		return user.body;
 	},

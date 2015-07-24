@@ -1,19 +1,55 @@
 var Tables = {
-	
+
 	birthday : {
 
-        'capricorn':'capricorn',
-        'aquarius':'aquarius',
-        'pisces':'pisces',
-        'aries':'aries',
-        'taurus':'taurus',
-        'gemini':'gemini',
-        'cancer':'cancer',
-        'leo':'leo',
-        'virgo':'virgo',
-        'libra':'libra',
-        'scorpio':'scorpio',
-        'sagittarius':'sagittarius'
+        'capricorn':{
+        	startDate: "December 22",
+        	endDate: "January 19"
+        },
+        'aquarius':{
+        	startDate: "January 20",
+        	endDate: "February 18"
+        },
+        'pisces':{
+        	startDate: "February 19",
+        	endDate: "March 20"
+        },
+        'aries': {
+        	startDate : "March 21",
+        	endDate : "April 19"
+        },
+        'taurus':{
+        	startDate: "April 20",
+        	endDate: "May 20"
+        },
+        'gemini':{
+        	startDate: "May 21",
+        	endDate: "June 20"
+        },
+        'cancer':{
+        	startDate: "June 21",
+        	endDate: "July 22"
+        },
+        'leo':{
+        	startDate: "July 23",
+        	endDate: "August 22"
+        },
+        'virgo':{
+        	startDate: "August 23",
+        	endDate: "September 22"
+        },
+        'libra':{
+        	startDate: "September 23",
+        	endDate: "October 22"
+        },
+        'scorpio':{
+        	startDate: "October 23",
+        	endDate: "November 21"
+        },
+        'sagittarius':{
+        	startDate: "November 22",
+        	endDate: "December 21"
+        }
 
 	},
 
