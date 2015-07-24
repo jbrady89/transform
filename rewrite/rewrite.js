@@ -24,7 +24,7 @@ var update = function(users){
 		return Final.updateAsync({_id : user._id}, updates)
 					.then(function(success){
 
-						console.log(success);
+						//console.log(success);
 					}, function(err){
 
 						console.log(err);

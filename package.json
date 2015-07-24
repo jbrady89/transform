@@ -11,6 +11,8 @@
     "underscore": "~1.x.x",
     "node-geocoder": "~2.21.2",
     "mongoose-findorcreate": "~0.1.2",
-    "q": "~1.4.1"
+    "q": "~1.4.1",
+    "async": "~1.4.0",
+    "bluebird": "~2.9.34"
   }
 }

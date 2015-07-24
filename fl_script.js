@@ -47,7 +47,9 @@ var ImportedData = {
 					};
 
 
-var count = 0;
+var count = 0;	
+var process = require('child_process');
+
 var importUsers = function(){
 
 		// get the first document in the collection
@@ -56,13 +58,17 @@ var importUsers = function(){
 
 			// ths returns true when there are no more records
 			if (importedUser == null) {
+
 				console.log("no more records!");
 				console.log("exiting now...");
-				process.exit();
+
+				return;
+
+			} else {
+				var imported = importedUser.toObject();
+				delete imported._id;
+				transform(imported);
 			}
-			var imported = importedUser.toObject();
-			delete imported._id;
-			transform(imported);
 
 		});
 	},

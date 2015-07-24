@@ -4,21 +4,23 @@ var Tables = require('./tables');
 var Rewrite = {
 
 	birthday : function(user){
-		var zodiacSign = user.Astrology.toLowerCase();
+		var zodiacSign = user.Astrology.trim().toLowerCase();
+		//console.log("8: " + zodiacSign);
 		if (zodiacSign !== "eastern leo" || zodiacSign !== "ethnicity"){
-			console.log(zodiacSign);
 			try {
+				//console.log("trying to get date for: " + zodiacSign);
 				var zodiacStartDate = Tables.birthday[zodiacSign].startDate;
 			}
 			catch (e){
+				return user.birthday
 				console.log(e);
 			}
-			//var age = user.Age;
-			//var d = new Date();
-			//var birthYear = d.getFullYear() - age;
-			//var birthDate = zodiacStartDate + " " + birthYear;
+			var age = user.Age;
+			var d = new Date();
+			var birthYear = d.getFullYear() - age;
+			var birthDate = zodiacStartDate + " " + birthYear;
 
-			return 'april 1 1989';
+			return birthDate;
 		}
 
 		return user.birthday;
