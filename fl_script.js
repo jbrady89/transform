@@ -92,7 +92,7 @@ var importUsers = function(){
 				//console.log(items);
 				var values = _.map(items, function(item){
 					var vals = item.split(":");
-					console.log("key value: " + vals[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ': '));
+					//console.log("key value: " + vals[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ': '));
 				 	infoKeys.push(vals[0].trim())
 					return vals[1] || '';
 				});
@@ -105,47 +105,76 @@ var importUsers = function(){
 
 			if (item.match(/Eye Color/)){
 				//console.log(item);
-				var matches = item.match(/([A-Za-z]+).*([A-Za-z]+)/igm);
+				var b = item.match(/([A-Za-z]+).*([A-Za-z]+)/igm);
 				//console.log(matches.slice(1));
-				console.log(matches);
+				//console.log(matches);
 				//console.log(item);
-				if (matches.length){
-					matches.forEach(function(match, index){
+				//console.log(b);
+				if (b.length){
+					var extraValues = [];
+					b.forEach(function(a, index){
+						//var abc = a.match(/([A-Za-z0-9\s]+):([A-Za-z0-9]+)/g);
+						//console.log(abc);
 						if (index % 2 == 0){
-							console.log("114: " + match);
+							//console.log("114: " + a);
 							//console.log(matches);
-							var match = match.replace(/(.*)(?=:)/, '').trim();
-							console.log(match);
-							infoValues.push(match);
+							var abc = item.match(/([A-Za-z0-9\s]*):([A-Za-z0-9]*)/m);
+							//console.log(abc[1], abc[2]);
+							if (a.indexOf(':') !== -1){
+								var a = a.split(':');
+								//console.log("124: " + a);
+								extraValues.push(a[1]);
+								infoKeys.push(a[0]);
+								//return a[1];
+							} else {
+
+								extraValues.push(a);
+
+							}
+							//console.log(infoValues);
+							//console.log(infoKeys);
 						} else {
-							console.log("117: " + match);
-							infoKeys.push(match);
+							//console.log("117: " + a);
+
+							infoKeys.push(a);
+							//return items[1];
 						}
+						//console.log("125" + abc);
+						//console.log(infoValues);
+
 					});
+					console.log(extraValues);
+					return extraValues;
+
+					//console.log(infoValues);
+					//console.log(infoKeys);
 				}
-				console.log(infoValues);
-				console.log(infoKeys);
-				process.exit();
+				//console.log("138" + infoValues);
+				//console.log(infoKeys);
+				//process.exit();
 			}
 
-			console.log("non-edited key: " + items[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ''));
+			//console.log("non-edited key: " + items[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ''));
 			infoKeys.push(items[0].trim());
 
 			return items[1];
 		});
 
+		console.log(infoValues);
+
 		//console.log("105: " + testArr);
 
-		console.log(infoKeys);
-		//console.log(infoValues);
+		//console.log("153: " + infoKeys);
+		//console.log("154: " + infoValues);
+		//process.exit();
 		//console.log(infoKeys);
 		//console.log(infoKeys[11]);
 		//console.log(infoValues[9]);
 		var info = _.chain(_.object(infoKeys, _.flatten(infoValues)))
 						   .omit(["Needs Test", "Chemistry", "\nView her chemistry results"])
 						   .value();
-		//console.log(info);
-
+		console.log(info);
+		process.exit();
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
 
