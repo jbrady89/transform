@@ -21,7 +21,7 @@ var FinalSchema = new Schema({
 	Ethnicity: {type: String, default: ''},
 	firstdate: {type: String, default: ''},
 	firstName: {type: String, default: ''},
-	HairColor: {type: String, default: ''},
+	HairColor: {type: String, default: '', trim: true},
 	hashedPassword: {type: String, default: ''},
 	hasQuestions: Boolean,
 	haveCar: {type: String, default: ''},

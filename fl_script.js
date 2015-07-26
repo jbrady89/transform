@@ -48,8 +48,6 @@ var ImportedData = {
 
 
 var count = 0;	
-var process = require('child_process');
-
 var importUsers = function(){
 
 		// get the first document in the collection
@@ -62,7 +60,7 @@ var importUsers = function(){
 				console.log("no more records!");
 				console.log("exiting now...");
 
-				return;
+				process.exit();
 
 			} else {
 				var imported = importedUser.toObject();
@@ -74,39 +72,79 @@ var importUsers = function(){
 	},
 	transform = function(newUserObj){
 		//console.log("53: " + newUserObj.Info);
-		//console.log(newUserObj.Info);
+		console.log(newUserObj.Info);
 
 		var infoKeys = [];
-
+		var testArr = [];
+		var infoValues = [];
 		var infoValues = _.map(newUserObj.Info, function(item, index){
-
+			//var item = item.replace(/\n/igm, ' ');
+			//testArr.push(item);
+			var item = item.replace(/[^a-zA-Z0-9&?:\/\s]/, '');
 			if (item.match(/\: ([^:]+)\:/)) {
 				var matches = item.match(/\:([^:]+)\:/);
 				//console.log(matches);
-				var item = item.replace(matches[0],":" + matches[1]);
+				//console.log(matches);
+				var item = item.replace(matches[0],":" + matches[1]).trim();
+				//console.log(item);
+				//console.log(item);
 				var items = item.split("\n");
-
+				//console.log(items);
 				var values = _.map(items, function(item){
 					var vals = item.split(":");
-				 	infoKeys.push(vals[0])
+					console.log("key value: " + vals[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ': '));
+				 	infoKeys.push(vals[0].trim())
 					return vals[1] || '';
 				});
-
+				//console.log(values);
 				return values;
 				
 			}
 			
-			var items = item.split(':');
-			infoKeys.push(items[0])
-			return items[1]
+			var items = item.split(':')
+
+			if (item.match(/Eye Color/)){
+				//console.log(item);
+				var matches = item.match(/([A-Za-z]+).*([A-Za-z]+)/igm);
+				//console.log(matches.slice(1));
+				console.log(matches);
+				//console.log(item);
+				if (matches.length){
+					matches.forEach(function(match, index){
+						if (index % 2 == 0){
+							console.log("114: " + match);
+							//console.log(matches);
+							var match = match.replace(/(.*)(?=:)/, '').trim();
+							console.log(match);
+							infoValues.push(match);
+						} else {
+							console.log("117: " + match);
+							infoKeys.push(match);
+						}
+					});
+				}
+				console.log(infoValues);
+				console.log(infoKeys);
+				process.exit();
+			}
+
+			console.log("non-edited key: " + items[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ''));
+			infoKeys.push(items[0].trim());
+
+			return items[1];
 		});
 
-		//console.log(infoKeys);
+		//console.log("105: " + testArr);
+
+		console.log(infoKeys);
 		//console.log(infoValues);
+		//console.log(infoKeys);
+		//console.log(infoKeys[11]);
+		//console.log(infoValues[9]);
 		var info = _.chain(_.object(infoKeys, _.flatten(infoValues)))
 						   .omit(["Needs Test", "Chemistry", "\nView her chemistry results"])
 						   .value();
-
+		//console.log(info);
 
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
@@ -125,7 +163,8 @@ var importUsers = function(){
 
 		var profileId = newUserObj.profileUrl.substring(newUserObj.profileUrl.indexOf("=") + 1);
 		//console.log(profileId);
-		console.log("118: " + JSON.stringify(newUserObj));
+		//console.log("118: " + JSON.stringify(newUserObj));
+		//process.exit();
 		var newProps = {
 							looking : info['I am Seeking a'] ? info['I am Seeking a'].trim().toUpperCase().slice(0,1) : info['I am Seeking a'],
 							relStat : info['Marital Status'],
@@ -138,6 +177,7 @@ var importUsers = function(){
 							doDrugs : info['Do you do drugs?'],
 							type : info['For'],
 							colorEyes : info['Eye Color'],
+							HairColor: info['Hair Color']? info['Hair Color'] : newUserObj.HairColor,
 							ambitionSelf : info['How ambitious are you?'],
 							Astrology : newUserObj.Astrology,
 							locationName : newUserObj.cityAndState,
