@@ -72,7 +72,7 @@ var importUsers = function(){
 	},
 	transform = function(newUserObj){
 		//console.log("53: " + newUserObj.Info);
-		console.log(newUserObj.Info);
+		//console.log(newUserObj.Info);
 
 		var infoKeys = [];
 		var testArr = [];
@@ -93,7 +93,7 @@ var importUsers = function(){
 				var values = _.map(items, function(item){
 					var vals = item.split(":");
 					//console.log("key value: " + vals[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ': '));
-				 	infoKeys.push(vals[0].trim())
+				 	infoKeys.push(vals[0].trim());
 					return vals[1] || '';
 				});
 				//console.log(values);
@@ -102,48 +102,92 @@ var importUsers = function(){
 			}
 			
 			var items = item.split(':')
+			/*if (item.match(/(Pets)(!?=:)/)) {
+				console.log(item);
+				process.exit();
+			}*/
 
-			if (item.match(/Eye Color/)){
-				//console.log(item);
+			if (item.match(/Eye Color|Pets/)){
+				//console.log("111: " + item);
+				//process.exit();
 				var b = item.match(/([A-Za-z]+).*([A-Za-z]+)/igm);
+				console.log(b);
 				//console.log(matches.slice(1));
 				//console.log(matches);
 				//console.log(item);
 				//console.log(b);
-				if (b.length){
+				//console.log("113: " + b);
+				if (b.length > 1){
 					var extraValues = [];
 					b.forEach(function(a, index){
 						//var abc = a.match(/([A-Za-z0-9\s]+):([A-Za-z0-9]+)/g);
 						//console.log(abc);
+						//console.log("118: " + a);
+						console.log("126: " + a);
+						
+						/*if (a.match(/Hair Color/)){
+							console.log("hair color");
+							process.exit();
+						}*/
+						if (a.match(/Pets(!?=:)/)){
+								console.log("124: " + a);
+								if (index % 2 == 0){
+									infoKeys.push(a);
+
+								} else {
+									infoValues.push(a);
+									
+								}
+								process.exit();
+
+							}
 						if (index % 2 == 0){
 							//console.log("114: " + a);
 							//console.log(matches);
-							var abc = item.match(/([A-Za-z0-9\s]*):([A-Za-z0-9]*)/m);
-							//console.log(abc[1], abc[2]);
-							if (a.indexOf(':') !== -1){
-								var a = a.split(':');
-								//console.log("124: " + a);
-								extraValues.push(a[1]);
-								infoKeys.push(a[0]);
-								//return a[1];
+							if (a.match(/Pets|Second Language/)){
+								//console.log("in block" + a);
+								infoKeys.push(a);
+								//continue;
+								return;
 							} else {
 
-								extraValues.push(a);
+							
+							
+								var abc = a.match(/([A-Za-z0-9\s]*):([A-Za-z0-9]*)/m);
+								//console.log(abc[1], abc[2]);
 
+								if (a.indexOf(':') !== -1){
+									var a = a.split(':');
+									//console.log("124: " + a);
+									a[1].replace(/[()]/, '')
+									extraValues.push(a[1]);
+									infoKeys.push(a[0]);
+									//return a[1];
+								} else {
+									a.replace(/[()]/, '')
+									extraValues.push(a);
+
+								}
 							}
 							//console.log(infoValues);
 							//console.log(infoKeys);
 						} else {
 							//console.log("117: " + a);
-
-							infoKeys.push(a);
+							if (b[index-1].match(/Pets|Second Language/)){
+								//console.log("in block" + a);
+								a.replace(/[()]/, '');
+								extraValues.push(a);
+							} else {
+								infoKeys.push(a);
+							}
 							//return items[1];
 						}
 						//console.log("125" + abc);
 						//console.log(infoValues);
 
 					});
-					console.log(extraValues);
+					//console.log(extraValues);
+					//process.exit();
 					return extraValues;
 
 					//console.log(infoValues);
@@ -152,29 +196,28 @@ var importUsers = function(){
 				//console.log("138" + infoValues);
 				//console.log(infoKeys);
 				//process.exit();
+			} else {
+				//console.log(item);
 			}
 
 			//console.log("non-edited key: " + items[0].replace(/([A-Za-z0-9])([\n]+)(?=[A-Za-z0-9])/, ''));
+			
 			infoKeys.push(items[0].trim());
 
 			return items[1];
 		});
 
-		console.log(infoValues);
+		
 
-		//console.log("105: " + testArr);
-
-		//console.log("153: " + infoKeys);
-		//console.log("154: " + infoValues);
-		//process.exit();
+		//console.log(infoValues);
 		//console.log(infoKeys);
-		//console.log(infoKeys[11]);
-		//console.log(infoValues[9]);
+		//process.exit();
+
 		var info = _.chain(_.object(infoKeys, _.flatten(infoValues)))
 						   .omit(["Needs Test", "Chemistry", "\nView her chemistry results"])
 						   .value();
 		console.log(info);
-		process.exit();
+		//process.exit();
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
 
@@ -208,6 +251,7 @@ var importUsers = function(){
 							colorEyes : info['Eye Color'],
 							HairColor: info['Hair Color']? info['Hair Color'] : newUserObj.HairColor,
 							ambitionSelf : info['How ambitious are you?'],
+							SecondLanguage : info['Second Language'],
 							Astrology : newUserObj.Astrology,
 							locationName : newUserObj.cityAndState,
 							firstName : '',

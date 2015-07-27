@@ -50,6 +50,7 @@ var FinalSchema = new Schema({
 	saveDate: Date,
 	sex: {type: String, default: ''},
 	sleep: {type: Boolean, default: false},
+	SecondLanguage : {type: String, default: ''},
 	Smoker: {type: String, default: ''},
 	type: {type: String, default: ''},
 	username: {type: String, default: ''},
