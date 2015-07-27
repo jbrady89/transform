@@ -1,6 +1,6 @@
-// Version v.0.4.3
+// Version v.0.4.4
 // July 20, 2015 04:40 UTC
-// Sex and Looking fields are set to a single letter.
+// added Second Language field and more flexible info parsing
 
 var _ = require("underscore");
 var mongoose = require("mongoose"),
@@ -129,7 +129,7 @@ var importUsers = function(){
 							console.log("hair color");
 							process.exit();
 						}*/
-						if (a.match(/Pets(!?=:)/)){
+						/*if (a.match(/Pets(!?=:)/)){
 								console.log("124: " + a);
 								if (index % 2 == 0){
 									infoKeys.push(a);
@@ -140,7 +140,7 @@ var importUsers = function(){
 								}
 								process.exit();
 
-							}
+							}*/
 						if (index % 2 == 0){
 							//console.log("114: " + a);
 							//console.log(matches);
