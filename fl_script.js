@@ -6,8 +6,12 @@ var _ = require("underscore");
 var mongoose = require("mongoose"),
 	Schema = mongoose.Schema;
 
-console.log("connection to db...\n");
-var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", "mongodb://localhost/transform"];
+console.log("connecting to db...\n");
+var dbs = ["mongodb://test:test@ds061218.mongolab.com:61218/dest2", 
+			"mongodb://localhost/transform",
+
+
+			];
 var db = dbs[0];
 
 mongoose.connect(db);
@@ -216,7 +220,7 @@ var importUsers = function(){
 		var info = _.chain(_.object(infoKeys, _.flatten(infoValues)))
 						   .omit(["Needs Test", "Chemistry", "\nView her chemistry results"])
 						   .value();
-		console.log(info);
+		//console.log(info);
 		//process.exit();
 
 		newUserObj.profilePicture = newUserObj.pictures[0];
@@ -243,7 +247,7 @@ var importUsers = function(){
 							petsHave : info['Pets'],
 							longestRel : info['Longest Relationship'],
 							kidsWant : info['Do you want children?'],
-							kidsHave : info['Do you have children?'],
+							kidsHave : info['Do you have children'],
 							haveCar : info['Do you have a car?'],
 							drinker : info['Do you drink?'],
 							doDrugs : info['Do you do drugs?'],
@@ -268,6 +272,7 @@ var importUsers = function(){
 							banned : false,
 							location : []
 						}
+
 
 		var newUserObj = _.extend(newUserObj, newProps);
 		//console.log(newUserObj);
